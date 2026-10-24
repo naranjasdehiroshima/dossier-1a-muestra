@@ -1,21 +1,28 @@
 # 1ª Muestra de Cine Documental Naranjas de Hiroshima en MX Nuestro Cine
 
-Dossier de resultados (2025) en formato revista hojeable, con descarga del PDF.
+Dossier de resultados (2025) en formato revista hojeable, con lupa para leer en el celular, enlaces pulsables y descarga del PDF.
 
-## Publicar en GitHub Pages
+## Publicar en GitHub Pages desde la web
 
-1. Sube el contenido de esta carpeta a un repositorio (por ejemplo `naranjasdehiroshima/dossier-1a-muestra`), o como subcarpeta de un repositorio que ya tenga Pages activo.
-2. En el repositorio: **Settings → Pages → Branch: main / (root) → Save**.
-3. Queda en `https://naranjasdehiroshima.github.io/dossier-1a-muestra/`.
+GitHub admite hasta 100 archivos por subida, así que hay que subirlo en tres tandas, arrastrando las carpetas (no con el botón «choose your files»):
 
-Se puede enlazar a una página concreta con `#p12` al final de la URL.
+1. `index.html`, `page-flip.browser.js`, `README.md`, el PDF y la carpeta `paginas`
+2. la carpeta `zoom`
+3. la carpeta `miniaturas`
+
+Luego: **Settings → Pages → Deploy from a branch → main / (root) → Save**.
+Queda en `https://naranjasdehiroshima.github.io/dossier-1a-muestra/`.
+
+- Abrir en una página concreta: `…/#p42`
+- Versión para incrustar en Blogger: `…/?embed`
 
 ## Contenido
 
-- `index.html` · visor (página que se hojea, índice, miniaturas, pantalla completa, QR pulsables)
-- `page-flip.browser.js` · librería StPageFlip 2.0.7 (MIT), incluida para no depender de CDN
-- `paginas/` · las 56 páginas en WebP (150 ppp)
-- `miniaturas/` · miniaturas para la vista de páginas
-- `Dossier_Revista_…pdf` · PDF para imprenta y descarga
+- `index.html` · visor (hojear, lupa con doble toque, índice, miniaturas, pantalla completa, enlaces)
+- `page-flip.browser.js` · StPageFlip 2.0.7 (MIT)
+- `paginas/` · 56 páginas en WebP (150 ppp)
+- `zoom/` · las mismas páginas en alta resolución (220 ppp) para la lupa
+- `miniaturas/` · miniaturas
+- PDF para imprenta y descarga, con enlaces pulsables
 
 Textos y datos: CC BY-NC-SA · Naranjas de Hiroshima. Las imágenes pertenecen a sus titulares y se reproducen con fines de difusión.
