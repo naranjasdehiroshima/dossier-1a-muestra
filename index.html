@@ -123,6 +123,11 @@ h1{margin:6px 0 4px;font-weight:900;font-size:clamp(26px,4vw,40px);line-height:1
 .th.on img{outline:2px solid var(--accent);outline-offset:1px}
 :fullscreen{background:var(--bg)}
 .embed-only{display:none}
+.home svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.home.icon{width:36px;padding:0;justify-content:center}
+.home:disabled{opacity:.35;cursor:default}
+.btn,.count{white-space:nowrap}
+@media (max-width:720px){.wide-only{display:none}.bar{flex-wrap:wrap;justify-content:center}#scrub{order:9;flex:1 1 100%}}
 @media (hover:none){.hot{outline:1px solid rgba(232,82,10,.5)}}
 .zoomer{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column}
 .zbar{flex:none;display:flex;align-items:center;gap:6px;padding:calc(8px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);background:var(--bg2)}
@@ -157,6 +162,7 @@ body.embed .nav{width:34px;height:70px;font-size:24px}
     <p class="sub">Dossier de resultados · 15 de abril – 31 de diciembre de 2025 · <b>11,335,671</b> espectadores</p>
   </div>
   <div class="actions">
+    <button type="button" class="btn ghost home" data-home aria-label="Ir a la portada"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg>Portada</button>
     <button type="button" class="btn ghost" id="btnToc" aria-expanded="false">Índice</button>
     <button type="button" class="btn ghost" id="btnGrid" aria-expanded="false">Páginas</button>
     <a class="btn solid" id="dl" href="Dossier_Revista_1a_Muestra_Naranjas_de_Hiroshima_MX_Nuestro_Cine.pdf" download>Descargar PDF <small>20 MB</small></a>
@@ -172,11 +178,12 @@ body.embed .nav{width:34px;height:70px;font-size:24px}
 </main>
 
 <footer class="bar">
+  <button type="button" class="btn ghost small home icon" data-home aria-label="Ir a la portada" title="Portada"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg></button>
   <div class="count"><input id="pg" type="number" min="1" max="56" value="1" aria-label="Ir a la página"><span>/ 56</span></div>
   <input id="scrub" type="range" min="1" max="56" value="1" aria-label="Recorrer la revista">
   <button type="button" class="btn solid small" id="zoomBtn">Ampliar</button>
   <button type="button" class="btn ghost small" id="fs">Pantalla completa</button>
-  <a class="btn ghost small embed-only" id="openFull" href="./" target="_blank" rel="noopener">Abrir revista ↗</a>
+  <a class="btn ghost small embed-only" id="openFull" href="./" target="_blank" rel="noopener">Abrir<span class="wide-only"> revista</span> ↗</a>
   <a class="btn solid small embed-only" href="Dossier_Revista_1a_Muestra_Naranjas_de_Hiroshima_MX_Nuestro_Cine.pdf" target="_blank" rel="noopener">PDF</a>
 </footer>
 <p class="hint">Pasa las páginas arrastrando la esquina, con las flechas del teclado o con los botones. Para leer la letra pequeña toca dos veces una página o pulsa «Ampliar». Los códigos QR y los enlaces se pueden pulsar: abren los promocionales en YouTube y las fichas en naranjasdehiroshima.com.</p>
@@ -311,6 +318,10 @@ body.embed .nav{width:34px;height:70px;font-size:24px}
     if (e.key === '+' || e.key === '=') zLevel(1);
     if (e.key === '-') zLevel(-1);
   }, true);
+  var homes = document.querySelectorAll('[data-home]');
+  homes.forEach(function(h){ h.onclick = function(){ closeAll(); flip.turnToPage(0); sync(0); }; });
+  flip.on('flip', function(e){ homes.forEach(function(h){ h.disabled = e.data === 0; }); });
+  homes.forEach(function(h){ h.disabled = flip.getCurrentPageIndex() === 0; });
   var fs = document.getElementById('fs');
   fs.onclick = function(){
     var d = document.documentElement;
